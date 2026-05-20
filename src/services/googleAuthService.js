@@ -23,38 +23,41 @@ function loadGoogleScript() {
 }
 
 /**
- * Initialize Google Identity Services and get an ID token.
+ * Render Google Sign In button in a container element.
+ * This is more reliable than the One Tap prompt.
  */
-export async function getGoogleIdToken() {
+export async function renderGoogleButton(container, onSuccess, onError) {
   await loadGoogleScript();
 
-  return new Promise((resolve, reject) => {
-    if (!window.google?.accounts?.id) {
-      reject(new Error("Google Sign In not available"));
-      return;
-    }
+  if (!window.google?.accounts?.id) {
+    onError(new Error("Google Sign In not available"));
+    return;
+  }
 
-    window.google.accounts.id.initialize({
-      client_id: GOOGLE_CLIENT_ID,
-      callback: (response) => {
-        if (response.credential) {
-          resolve(response.credential);
-        } else {
-          reject(new Error("No credential received from Google"));
+  window.google.accounts.id.initialize({
+    client_id: GOOGLE_CLIENT_ID,
+    callback: async (response) => {
+      if (response.credential) {
+        try {
+          const result = await exchangeGoogleToken(response.credential);
+          onSuccess(result);
+        } catch (error) {
+          onError(error);
         }
-      },
-      error_callback: (error) => {
-        reject(new Error(error.message || "Google Sign In failed"));
-      },
-    });
-
-    // Use the prompt method to show the One Tap dialog
-    window.google.accounts.id.prompt((notification) => {
-      if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-        // If One Tap is not displayed, try the popup flow
-        reject(new Error("Google Sign In popup was blocked or dismissed"));
+      } else {
+        onError(new Error("No credential received from Google"));
       }
-    });
+    },
+  });
+
+  window.google.accounts.id.renderButton(container, {
+    type: "standard",
+    theme: "outline",
+    size: "large",
+    text: "continue_with",
+    shape: "rectangular",
+    logo_alignment: "left",
+    width: container.offsetWidth || 300,
   });
 }
 
@@ -64,17 +67,4 @@ export async function getGoogleIdToken() {
 export async function exchangeGoogleToken(idToken) {
   const response = await api.post("/auth/google", { idToken });
   return response.data;
-}
-
-/**
- * Open Google OAuth popup and return the ID token.
- */
-export async function signInWithGoogle() {
-  try {
-    const idToken = await getGoogleIdToken();
-    const result = await exchangeGoogleToken(idToken);
-    return result;
-  } catch (error) {
-    throw error;
-  }
 }
