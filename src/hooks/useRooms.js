@@ -13,7 +13,10 @@ export function useRooms(params = {}) {
 export function useRoom(id) {
   return useQuery({
     queryKey: ["rooms", id],
-    queryFn: () => roomService.getById(id),
+    queryFn: async () => {
+      const data = await roomService.getById(id);
+      return data.room;
+    },
     enabled: !!id,
   });
 }

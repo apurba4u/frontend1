@@ -38,7 +38,7 @@ export default function RoomCard({ room, index = 0 }) {
 
             {/* Price Badge */}
             <div className="absolute top-3 right-3 px-3 py-1.5 rounded-xl glass text-sm font-bold text-on-surface">
-              {formatPrice(room.pricePerHour)}
+              {formatPrice(room.hourlyPrice)}
               <span className="text-xs font-normal opacity-70">/hr</span>
             </div>
 

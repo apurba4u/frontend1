@@ -18,7 +18,7 @@ const roomSchema = z.object({
   image: z.string().url("Please enter a valid image URL"),
   floor: z.coerce.number().min(1, "Floor must be at least 1").max(50),
   capacity: z.coerce.number().min(1, "Capacity must be at least 1").max(100),
-  pricePerHour: z.coerce.number().min(1, "Price must be at least $1"),
+  hourlyPrice: z.coerce.number().min(1, "Price must be at least $1"),
   amenities: z.array(z.string()).min(1, "Select at least one amenity"),
 });
 
@@ -170,15 +170,15 @@ export default function AddRoomPage() {
                   Price/Hour ($)
                 </label>
                 <input
-                  {...register("pricePerHour")}
+                  {...register("hourlyPrice")}
                   type="number"
                   min={1}
                   placeholder="15"
                   className="w-full px-4 py-3 rounded-xl bg-surface-container border border-outline-variant/30 text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-all text-sm"
                 />
-                {errors.pricePerHour && (
+                {errors.hourlyPrice && (
                   <p className="mt-1 text-xs text-error">
-                    {errors.pricePerHour.message}
+                    {errors.hourlyPrice.message}
                   </p>
                 )}
               </div>

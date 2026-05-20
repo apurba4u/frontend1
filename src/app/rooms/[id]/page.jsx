@@ -50,7 +50,7 @@ export default function RoomDetailsPage() {
       ? calculateTotalPrice(
           bookingData.startTime,
           bookingData.endTime,
-          room.pricePerHour
+          room.hourlyPrice
         )
       : 0;
 
@@ -221,7 +221,7 @@ export default function RoomDetailsPage() {
                 <div className="p-4 rounded-xl bg-surface-container-low border border-outline-variant/20 text-center">
                   <DollarSign className="w-5 h-5 text-primary mx-auto mb-1" />
                   <p className="text-xl font-bold text-on-surface">
-                    {formatPrice(room.pricePerHour)}
+                    {formatPrice(room.hourlyPrice)}
                   </p>
                   <p className="text-xs text-on-surface-variant">per hour</p>
                 </div>
@@ -336,7 +336,7 @@ export default function RoomDetailsPage() {
                           Rate
                         </span>
                         <span className="text-sm text-on-surface">
-                          {formatPrice(room.pricePerHour)}/hr
+                          {formatPrice(room.hourlyPrice)}/hr
                         </span>
                       </div>
                       <div className="h-px bg-outline-variant/20 my-2" />

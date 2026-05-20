@@ -114,7 +114,7 @@ export default function MyListingsPage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                     <div className="absolute top-3 right-3 px-3 py-1.5 rounded-xl glass text-sm font-bold text-on-surface">
-                      {formatPrice(room.pricePerHour)}/hr
+                      {formatPrice(room.hourlyPrice)}/hr
                     </div>
                   </div>
 

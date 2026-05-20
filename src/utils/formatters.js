@@ -29,7 +29,7 @@ export function calculateDuration(startTime, endTime) {
   return (endH * 60 + endM - startH * 60 - startM) / 60;
 }
 
-export function calculateTotalPrice(startTime, endTime, pricePerHour) {
+export function calculateTotalPrice(startTime, endTime, hourlyPrice) {
   const hours = calculateDuration(startTime, endTime);
-  return Math.round(hours * pricePerHour * 100) / 100;
+  return Math.round(hours * hourlyPrice * 100) / 100;
 }
