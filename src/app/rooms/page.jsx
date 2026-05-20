@@ -36,8 +36,8 @@ export default function RoomsPage() {
 
   const { data, isLoading } = useRooms(queryParams);
   const rooms = data?.rooms || [];
-  const totalPages = data?.totalPages || 1;
-  const total = data?.total || 0;
+  const totalPages = data?.pagination?.pages || 1;
+  const total = data?.pagination?.total || 0;
 
   const resetFilters = () => {
     setFilters({
