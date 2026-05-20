@@ -5,7 +5,10 @@ import { toast } from "react-toastify";
 export function useMyBookings() {
   return useQuery({
     queryKey: ["bookings", "my"],
-    queryFn: bookingService.getMyBookings,
+    queryFn: async () => {
+      const data = await bookingService.getMyBookings();
+      return data.bookings || [];
+    },
   });
 }
 
