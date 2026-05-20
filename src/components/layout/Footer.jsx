@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { BookOpen, Github, Twitter, Linkedin, Heart } from "lucide-react";
+import { BookOpen, Heart, Globe, Send, MessageCircle } from "lucide-react";
 
 const footerLinks = {
   Platform: [
@@ -39,7 +39,7 @@ export default function Footer() {
               your perfect study room today.
             </p>
             <div className="flex items-center gap-3">
-              {[Github, Twitter, Linkedin].map((Icon, i) => (
+              {[Globe, Send, MessageCircle].map((Icon, i) => (
                 <a
                   key={i}
                   href="#"
