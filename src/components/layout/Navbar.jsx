@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "next-themes";
@@ -147,11 +148,18 @@ export default function Navbar() {
                     onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                     className="flex items-center gap-2 px-3 py-1.5 rounded-xl hover:bg-surface-container transition-colors"
                   >
-                    <img
-                      src={user?.photoURL || DEFAULT_AVATAR}
-                      alt={user?.name || "User"}
-                      className="w-8 h-8 rounded-full object-cover"
-                    />
+                    <div className="relative w-8 h-8 rounded-full overflow-hidden">
+                      <Image
+                        src={user?.photoURL || DEFAULT_AVATAR}
+                        alt={user?.name || "User"}
+                        fill
+                        className="object-cover"
+                        onError={(e) => {
+                          e.target.src = DEFAULT_AVATAR;
+                        }}
+                        unoptimized
+                      />
+                    </div>
                     <span className="hidden sm:block text-sm font-medium text-on-surface">
                       {user?.name?.split(" ")[0]}
                     </span>
@@ -334,11 +342,18 @@ export default function Navbar() {
                 {isAuthenticated ? (
                   <div className="space-y-3">
                     <div className="flex items-center gap-3 px-4 py-2">
-                      <img
-                        src={user?.photoURL || DEFAULT_AVATAR}
-                        alt={user?.name || "User"}
-                        className="w-10 h-10 rounded-full object-cover"
-                      />
+                      <div className="relative w-10 h-10 rounded-full overflow-hidden">
+                        <Image
+                          src={user?.photoURL || DEFAULT_AVATAR}
+                          alt={user?.name || "User"}
+                          fill
+                          className="object-cover"
+                          onError={(e) => {
+                            e.target.src = DEFAULT_AVATAR;
+                          }}
+                          unoptimized
+                        />
+                      </div>
                       <div>
                         <p className="text-sm font-semibold text-on-surface">
                           {user?.name}

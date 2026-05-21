@@ -1,5 +1,5 @@
 export const DEFAULT_AVATAR =
-  "https://ui-avatars.com/api/?name=User&background=6366f1&color=fff";
+  "https://api.dicebear.com/7.x/initials/svg?seed=User";
 
 export const AMENITIES = [
   "WiFi",
