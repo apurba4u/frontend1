@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "next-themes";
 import { useAuth } from "@/providers/AuthProvider";
+import { DEFAULT_AVATAR } from "@/utils/constants";
 import {
   BookOpen,
   Search,
@@ -146,15 +147,11 @@ export default function Navbar() {
                     onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                     className="flex items-center gap-2 px-3 py-1.5 rounded-xl hover:bg-surface-container transition-colors"
                   >
-                    {user?.photoURL ? (
-                      <img
-                        src={user.photoURL}
-                        alt={user.name}
-                        className="w-8 h-8 rounded-full object-cover"
-                      />
-                    ) : (
-                      <div className="w-8 h-8" />
-                    )}
+                    <img
+                      src={user?.photoURL || DEFAULT_AVATAR}
+                      alt={user?.name || "User"}
+                      className="w-8 h-8 rounded-full object-cover"
+                    />
                     <span className="hidden sm:block text-sm font-medium text-on-surface">
                       {user?.name?.split(" ")[0]}
                     </span>
@@ -337,15 +334,11 @@ export default function Navbar() {
                 {isAuthenticated ? (
                   <div className="space-y-3">
                     <div className="flex items-center gap-3 px-4 py-2">
-                      {user?.photoURL ? (
-                        <img
-                          src={user.photoURL}
-                          alt={user.name}
-                          className="w-10 h-10 rounded-full object-cover"
-                        />
-                      ) : (
-                        <div className="w-10 h-10" />
-                      )}
+                      <img
+                        src={user?.photoURL || DEFAULT_AVATAR}
+                        alt={user?.name || "User"}
+                        className="w-10 h-10 rounded-full object-cover"
+                      />
                       <div>
                         <p className="text-sm font-semibold text-on-surface">
                           {user?.name}
