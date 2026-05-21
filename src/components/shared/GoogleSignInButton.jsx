@@ -10,12 +10,18 @@ export default function GoogleSignInButton() {
   const handleGoogleSignIn = async () => {
     setIsLoading(true);
     try {
-      await authClient.signIn.social({
+      console.log("[GoogleSignIn] Initiating OAuth flow...");
+      const result = await authClient.signIn.social({
         provider: "google",
         callbackURL: window.location.origin + "/",
       });
+      console.log("[GoogleSignIn] Response:", JSON.stringify(result));
+      if (result?.error) {
+        console.error("[GoogleSignIn] Error response:", result.error);
+        setIsLoading(false);
+      }
     } catch (err) {
-      console.error("Google sign in error:", err);
+      console.error("[GoogleSignIn] Exception:", err);
       setIsLoading(false);
     }
   };
