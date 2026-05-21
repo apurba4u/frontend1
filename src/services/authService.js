@@ -49,7 +49,7 @@ export const authService = {
           _id: session.user.id,
           name: session.user.name || "",
           email: session.user.email || "",
-          avatar: session.user.image || session.user.avatar || "",
+          photoURL: session.user.image || "",
           role: session.user.role || "user",
         };
       }

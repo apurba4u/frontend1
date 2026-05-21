@@ -18,11 +18,13 @@ import {
   EyeOff,
   Loader2,
   ArrowRight,
+  Link as LinkIcon,
 } from "lucide-react";
 
 const registerSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Please enter a valid email"),
+  photoURL: z.string().url("Please enter a valid URL").min(1, "Photo URL is required"),
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
@@ -111,6 +113,27 @@ export default function RegisterPage() {
                 {errors.email && (
                   <p className="mt-1 text-xs text-error">
                     {errors.email.message}
+                  </p>
+                )}
+              </div>
+
+              {/* Photo URL */}
+              <div>
+                <label className="block text-sm font-medium text-on-surface mb-1.5">
+                  Photo URL
+                </label>
+                <div className="relative">
+                  <LinkIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-on-surface-variant" />
+                  <input
+                    {...register("photoURL")}
+                    type="url"
+                    placeholder="https://example.com/photo.jpg"
+                    className="w-full pl-11 pr-4 py-3 rounded-xl bg-surface-container border border-outline-variant/30 text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-all text-sm"
+                  />
+                </div>
+                {errors.photoURL && (
+                  <p className="mt-1 text-xs text-error">
+                    {errors.photoURL.message}
                   </p>
                 )}
               </div>

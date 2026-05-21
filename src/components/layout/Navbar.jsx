@@ -146,9 +146,15 @@ export default function Navbar() {
                     onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                     className="flex items-center gap-2 px-3 py-1.5 rounded-xl hover:bg-surface-container transition-colors"
                   >
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white text-sm font-semibold">
-                      {user?.name?.charAt(0)?.toUpperCase() || "U"}
-                    </div>
+                    {user?.photoURL ? (
+                      <img
+                        src={user.photoURL}
+                        alt={user.name}
+                        className="w-8 h-8 rounded-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-8 h-8" />
+                    )}
                     <span className="hidden sm:block text-sm font-medium text-on-surface">
                       {user?.name?.split(" ")[0]}
                     </span>
@@ -331,9 +337,15 @@ export default function Navbar() {
                 {isAuthenticated ? (
                   <div className="space-y-3">
                     <div className="flex items-center gap-3 px-4 py-2">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-semibold">
-                        {user?.name?.charAt(0)?.toUpperCase() || "U"}
-                      </div>
+                      {user?.photoURL ? (
+                        <img
+                          src={user.photoURL}
+                          alt={user.name}
+                          className="w-10 h-10 rounded-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-10 h-10" />
+                      )}
                       <div>
                         <p className="text-sm font-semibold text-on-surface">
                           {user?.name}
